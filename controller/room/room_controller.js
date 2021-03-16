@@ -28,8 +28,10 @@ const asOpenRoom = () => {
  * set new live room
  * @param {String} roomID - MongoDb document id
  */
-const setNewRoom = (roomID, messages) => {
-    roomList[roomID] = new Room(roomID, messages);
+const setNewRoom = () => {
+    let roomID = '_Ch_'+Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 15);
+    roomList[roomID] = new Room(roomID);
+    return roomID;
 }
 
 /**

@@ -1,6 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser');
 const chatsController = require('../chats/chats_controller')
+const fs = require('fs');
 const app = express();
 
 app.use((req, res, next) => {
@@ -24,6 +25,9 @@ app.use(bodyParser.urlencoded({
 
 
 app.use('/chats', chatsController)
+app.use('/home',(req,res)=>{
+  res.write(fs.readFileSync('./index.html'))
+})
 
 app.use('**',(req,res)=>{
     console.log('request Unknown');

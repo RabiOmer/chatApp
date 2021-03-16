@@ -15,7 +15,7 @@ class Server {
           });
         
           
-          server.listen(this.port, this.hostname, () => {
+          let httpServer = server.listen(this.port, this.hostname, () => {
             console.log(`Server running at http://${this.hostname}:${this.port}/`);
           });
           const Socket = new SocketConnection();

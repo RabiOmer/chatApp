@@ -13,37 +13,36 @@
 </head>
 
 <body>
-    <div id="container">
-<!-- <        <h1>ChatMe</h1>> -->
-        <div id="chatList" class="side-box">
-            <div>
-                <h1>chat</h1>
-            </div>
-            <div class="list">
-                <ul>
-                    <li>chat name <span>
-                        <i class="far fa-comment"></i><i class="fas fa-user-plus"></i></li>
-                    </span>
-                    <li>chat name </li>
-                    <li>chat name </li>
-                    <li>chat name </li>
-                    <li>chat name </li>
-
-                </ul>
-            </div>
-            <div>
-                <button>
-                    <input type="text" placeholder="room name">
-                    <button type="button" class="btn btn-success">Join</button>
-                </button>
-                <button type="button" class="btn btn-primary">Create</button>
-            </div>
+    <div id="chatList" class="side-box">
+        <div>
+            <h1>chat</h1>
         </div>
-        <div id="chat">
-            <div id="title">
+        <div class="list">
+            <ul>
+                <li>chat name <span>
+                    <i class="far fa-comment"></i><i class="fas fa-user-plus"></i></li>
+                </span>
+                <li>chat name </li>
+                <li>chat name </li>
+                <li>chat name </li>
+                <li>chat name </li>
+    
+            </ul>
+        </div>
+        <div>
+            <button>
+                <input type="text" placeholder="room name">
+                <button type="button" class="btn btn-success">Join</button>
+            </button>
+            <button type="button" class="btn btn-primary">Create</button>
+        </div>
+    </div>
+    <div class="container hide">
+        <div class="chat">
+            <div class="title">
                 <h1>chatName</h1>
             </div>
-            <div id="messages">
+            <div class="messages">
                 <div class="msg-box-left">
                     <div class="msg">
                         <div class="icons"><i class="fas fa-quote-left"></i><i class="far fa-heart"></i></div>
@@ -86,8 +85,8 @@
                 </div>
             </div>
             
-            <div id="message-form">
-                <div id="box">
+            <div class="message-form">
+                <div class="box">
                 <div class="icons">
                     <i class="fas fa-smile"></i>
                     <i class="far fa-heart"></i>
@@ -107,13 +106,15 @@
             </div>
             </div>
         </div>
-        <div id="notification" class="side-box">
-            <div>
-                <h1>notification</h1>
-            </div>
-        </div>
     </div>
+    <!-- <div id="notification" class="side-box">
+        <div>
+            <h1>notification</h1>
+        </div>
+    </div> -->
 </body>
-
-<script src="./script.js"></script>
+<script src="./scripts/socket.js"></script>
+<script src="./scripts/massages.js"></script>
+<script src="./scripts/chat.js"></script>
+<script src="./scripts/controller.js"></script>
 </html>

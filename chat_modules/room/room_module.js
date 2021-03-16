@@ -1,11 +1,10 @@
 // room class
 class Room {
 
-    constructor(roomID,messages) {
+    constructor(roomID) {
         this.roomID = roomID;
         this.users = [];
-        console.log(`constructor - `,messages)
-        this.messages = messages ? messages : [];
+        this.messages = [];
         console.log(this.messages)
     }
 
@@ -33,7 +32,8 @@ class Room {
                 id: ws.userInfo.id,
                 name: ws.userInfo.name,
             },
-            messages: this.messages
+            messages: this.messages,
+            roomID: this.roomID
         }, 'newUserJoin')
     }
 

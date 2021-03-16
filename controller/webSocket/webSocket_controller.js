@@ -1,5 +1,6 @@
 const WebSocket = require('ws');
 const RoomController = require('../room/room_controller');
+const UserController = require('../users/users_controller');
 class SocketConnection {
 
   constructor() {
@@ -7,15 +8,14 @@ class SocketConnection {
   }
   // setup web socket server
   openNewWebSocketServer(server) {
-    this.WSS = new WebSocket.Server({
-      server: server
-    });
+    this.WSS = new WebSocket.Server({server});
     this.activeConnectionListeners();
   }
 
   // set event when user open connection
   activeConnectionListeners() {
     this.WSS.on('connection', async (ws, req) => {
+      console.log('onconnection')
       this.activeMessageListeners(ws);
       this.activeCloseListeners(ws);
     });
@@ -40,6 +40,14 @@ class SocketConnection {
     console.log('manageActions : ', data)
     if (data.action) {
       switch (data.action) {
+        case 'newUser': 
+        let user = UserController.setUser(data.name)
+        console.log(user)
+        user ? ws.send(JSON.stringify({action:'newUser',user})) : ws.close();
+        ws.userInfo = {
+          ...data.user
+        }
+        break;
         case 'setUser':
           ws.userInfo = {
             ...data.user
@@ -47,7 +55,10 @@ class SocketConnection {
           if(ws && ws.readyState && ws.readyState.OPEN == 1) console.log('WS IS OPEN')
           ws.send(JSON.stringify({action:'SetUserIsComplete'}))
           break;
-        case 'join':
+          case 'join':
+            let roomID = RoomController.setNewRoom()
+            console.log('join room ',roomID)
+          ws.userInfo.roomID = roomID;
           RoomController.setUserInRoom(ws)
           break;
         case 'message':
