@@ -7,13 +7,38 @@
     <title>Document</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Secular+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
     <link rel="stylesheet" href="main.css">
 </head>
 
 <body>
     <div id="container">
-        <h1>ChatMe</h1>
+<!-- <        <h1>ChatMe</h1>> -->
+        <div id="chatList" class="side-box">
+            <div>
+                <h1>chat</h1>
+            </div>
+            <div class="list">
+                <ul>
+                    <li>chat name <span>
+                        <i class="far fa-comment"></i><i class="fas fa-user-plus"></i></li>
+                    </span>
+                    <li>chat name </li>
+                    <li>chat name </li>
+                    <li>chat name </li>
+                    <li>chat name </li>
+
+                </ul>
+            </div>
+            <div>
+                <button>
+                    <input type="text" placeholder="room name">
+                    <button type="button" class="btn btn-success">Join</button>
+                </button>
+                <button type="button" class="btn btn-primary">Create</button>
+            </div>
+        </div>
         <div id="chat">
             <div id="title">
                 <h1>chatName</h1>
@@ -75,11 +100,16 @@
                 </div>
                 <textarea name="comment[body]" rows="1" cols="50" wrap="physical" id="comment_text_area"></textarea>
                 <div>
-                    <button  type="button" class="btn send">send</button>
-                    <button  type="button" class="btn clear">clear</button>
+                    <button type="button" class="btn btn-success">Send</button>
+                    <button type="button" class="btn btn-danger">Clear</button>
                 </div>
                     
             </div>
+            </div>
+        </div>
+        <div id="notification" class="side-box">
+            <div>
+                <h1>notification</h1>
             </div>
         </div>
     </div>
