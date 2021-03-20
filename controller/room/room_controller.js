@@ -29,7 +29,7 @@ const asOpenRoom = () => {
  * @param {String} roomID - MongoDb document id
  */
 const setNewRoom = () => {
-    let roomID = '_Ch_'+Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 15);
+    let roomID = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 3);
     roomList[roomID] = new Room(roomID);
     return roomID;
 }
@@ -44,22 +44,24 @@ const getRoomData = (roomID) => {
 
 //add message to room
 const setMessage = (ws, message) => {
-    roomList[ws.userInfo.roomID].addMessage(ws, message)
+    roomList[message.roomID].addMessage(ws, message.message)
 }
 
 //add user to room
-const setUserInRoom = (ws) => {
-    if (ws.userInfo.roomID && roomList[ws.userInfo.roomID])
-        roomList[ws.userInfo.roomID].joinRoom(ws)
+const setUserInRoom = (ws,roomID) => {
+    if (roomID && roomList[roomID])
+        roomList[roomID].joinRoom(ws)
 }
 //remove user from room
 const removeUserFromRoom = async (ws) => {
     if (ws && ws.userInfo && ws.userInfo.roomID) {
         if (roomList[ws.userInfo.roomID]) {
-            let isUsers = roomList[ws.userInfo.roomID].removeUserById(ws.userInfo.userId);
-            if (isUsers) return
-            await roomList[ws.userInfo.roomID].setMessagesInDB();
-            delete roomList[ws.userInfo.roomID];
+            for (let index = 0; ws.userInfo.rooms < array.length; index++) {
+                const roomID = ws.userInfo.rooms [index];
+                let isUsers = roomList[roomID].removeUserById(ws.userInfo.userId);
+                if (isUsers) continue;
+                delete roomList[roomID];  
+            }
         }
     }
 }

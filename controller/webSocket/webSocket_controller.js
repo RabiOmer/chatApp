@@ -8,14 +8,15 @@ class SocketConnection {
   }
   // setup web socket server
   openNewWebSocketServer(server) {
-    this.WSS = new WebSocket.Server({server});
+    this.WSS = new WebSocket.Server({
+      server
+    });
     this.activeConnectionListeners();
   }
 
   // set event when user open connection
   activeConnectionListeners() {
     this.WSS.on('connection', async (ws, req) => {
-      console.log('onconnection')
       this.activeMessageListeners(ws);
       this.activeCloseListeners(ws);
     });
@@ -23,7 +24,6 @@ class SocketConnection {
   // close event handler
   activeCloseListeners(userWs) {
     userWs.on('close', () => {
-      console.log("disConnected : ");
       RoomController.removeUserFromRoom(userWs);
       return;
     });
@@ -31,38 +31,44 @@ class SocketConnection {
   // message event handler
   activeMessageListeners(userWs) {
     userWs.on('message', (message) => {
-        let data = JSON.parse(message);
-        this.manageActions(userWs, data);
+      let data = JSON.parse(message);
+      this.manageActions(userWs, data);
     });
   }
+
+  setNewUser(ws,data) {
+    let user = UserController.setUser(data.name)
+    user ? ws.send(JSON.stringify({
+      action: 'newUser',
+      user
+    })) : ws.close();
+    ws.userInfo = user
+    ws.userInfo.rooms = [];
+    this.joinChat(ws,data.chatID)
+  }
+
+  joinChat(ws,roomID = null) {
+    let asRoom = false;
+    if(roomID) asRoom = RoomController.findRoom(roomID);
+     if(!asRoom) {
+      roomID = RoomController.setNewRoom()
+    }
+    ws.userInfo.rooms.push(roomID);
+    RoomController.setUserInRoom(ws, roomID,asRoom)
+  }
+
   // manage user action
   manageActions(ws, data) {
-    console.log('manageActions : ', data)
     if (data.action) {
       switch (data.action) {
-        case 'newUser': 
-        let user = UserController.setUser(data.name)
-        console.log(user)
-        user ? ws.send(JSON.stringify({action:'newUser',user})) : ws.close();
-        ws.userInfo = {
-          ...data.user
-        }
-        break;
-        case 'setUser':
-          ws.userInfo = {
-            ...data.user
-          }
-          if(ws && ws.readyState && ws.readyState.OPEN == 1) console.log('WS IS OPEN')
-          ws.send(JSON.stringify({action:'SetUserIsComplete'}))
+        case 'newUser':
+          this.setNewUser(ws,data);
           break;
-          case 'join':
-            let roomID = RoomController.setNewRoom()
-            console.log('join room ',roomID)
-          ws.userInfo.roomID = roomID;
-          RoomController.setUserInRoom(ws)
+        case 'join':
+          this.joinChat(ws);
           break;
         case 'message':
-          RoomController.setMessage(ws, data)
+          if (ws.userInfo.rooms.includes(data.roomID)) RoomController.setMessage(ws, data)
           break;
 
         default:

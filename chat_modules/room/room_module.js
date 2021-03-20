@@ -5,7 +5,6 @@ class Room {
         this.roomID = roomID;
         this.users = [];
         this.messages = [];
-        console.log(this.messages)
     }
 
     // send message to all coacted clients
@@ -39,32 +38,25 @@ class Room {
 
     //add message to room
     addMessage(ws, message) {
-
         this.messages.unshift({
             sendId: ws.userInfo.id,
-            userName: ws.userInfo.name,
-            context: message.context,
+            username: ws.userInfo.name,
+            content: message,
+            roomID: this.roomID,
+            id: +new Date(),
             time: +new Date()
         })
 
         this.broadcast(this.messages[0], 'newChatMessage');
 
-        // update in db every 20 messages
-        if (this.messages.length % 20 == 0) this.setMessagesInDB()
     }
-    async setMessagesInDB(){
-        if(!this.messages.length) return
-        await ChatModule.update(this.roomID, {
-            massages: this.messages
-        })
-        return
-    }
+
 
     //remove user from room
     removeUserById(id) {
-        if(id) {
+        if (id) {
             let userIndex = this.users.findIndex(e => e.id == id)
-            this.users.splice(userIndex,1);
+            this.users.splice(userIndex, 1);
             return this.users.length;
         }
     }

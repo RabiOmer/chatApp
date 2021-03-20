@@ -8,16 +8,6 @@ body {
     background-color: #638BFB;
     display: flex;
 }
-button, button:focus {
-    outline: none;
-    background: transparent;
-    border: 1px solid transparent;
-}
-
-button:active {
-    outline: none;
-    background: transparent;
-}
 
 p {
     margin-bottom: 0px;
@@ -29,25 +19,31 @@ p {
     border-radius: 5px;
 }
 
-  /* Track */
+/* Track */
 ::-webkit-scrollbar-track {
     background: #f1f1f1;
-    
+
 }
 
-  /* Handle */
+/* Handle */
 ::-webkit-scrollbar-thumb {
     background: gray;
     border-radius: 10px;
 }
+
 ::-webkit-resizer {
     height: 50px;
 }
 
 
 ::-webkit-scrollbar-thumb:hover {
-background: #555;
+    background: #555;
 }
+
+#chatsContainer {
+    margin: 0 auto;
+}
+
 .container {
     display: flex;
     width: 100%;
@@ -65,6 +61,7 @@ background: #555;
     border-radius: 25px;
     padding: 10px;
 }
+
 .title {
     background-color: #B7CCFF;
     width: 100%;
@@ -72,6 +69,7 @@ background: #555;
     border-radius: 25px 25px 10px 10px;
     margin-bottom: 1.5%;
 }
+
 .messages {
     overflow-y: auto;
     width: 100%;
@@ -82,6 +80,7 @@ background: #555;
     box-sizing: border-box;
     font-family: 'Crete Round', serif;
 }
+
 .msg {
     background-color: #88a8ff;
     max-width: 70%;
@@ -95,32 +94,40 @@ background: #555;
     box-shadow: 0px 0px 2px #fff;
     position: relative;
 }
+
 .myMsg {
     background-color: #B7CCFF;
 }
+
 .msg-box-left {
     text-align: left;
     margin-bottom: 10px;
 }
+
 .msg-box-right {
     text-align: right;
     margin-bottom: 10px;
 }
+
 .messages .icons {
     position: absolute;
     top: 0px;
     right: 10px;
 }
+
 .messages .icons i {
     margin-left: 10px;
     cursor: pointer;
 }
+
 .messages .fas.fa-heart {
     color: red;
 }
+
 .name {
     font-weight: bold;
 }
+
 .time {
     text-align: right;
     font-size: 10px;
@@ -134,12 +141,15 @@ background: #555;
     border-radius: 10px 10px 25px 25px;
     margin-bottom: 10px;
 }
+
 .message-form .box {
-    padding: 10px; 
+    padding: 10px;
 }
+
 .box .icons {
     text-align: left;
 }
+
 .box .icons i {
     margin-left: 10px;
     cursor: pointer;
@@ -164,32 +174,26 @@ background: #555;
     width: 100px;
     margin-top: 10px;
     height: 25px;
-    border: none;
-    border-radius: 10px;
     cursor: pointer;
     box-shadow: 0px 0px 11px #fff;
-}
-
-.btn.clear {
-    background-color: red;
-}
-.btn.send {
-    background-color: green;
-}
-
-.side-box {
-    width: 15%;
-    height: 50%;
-    background-color: white;
-    position: relative;
-    top: 25%;
-    border-radius: 25px;
-    box-sizing: border-box;
-    box-shadow: 2px 2px 0px black;
-    margin-right: 10px;
-    margin-left: 10px;
+    line-height: 13px;
 }
 
 .hide {
     display: none;
+}
+
+#login {
+    width: 250px;
+    height: 250px;
+    background-color: #fff;
+    margin: 0 auto;
+    margin-top: 10%;
+    box-shadow: 2px 2px 14px;
+    text-align: center;
+    padding: 20px;
+}
+
+#login div {
+    margin: 20px;
 }

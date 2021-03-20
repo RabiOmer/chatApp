@@ -1,47 +1,34 @@
 class Socket {
 
-    constructor(){
-      this.url = "ws://127.0.0.1:3000"
-    }
+  constructor(manageActionCb) {
+    this.url = "ws://127.0.0.1:3000";
+    this.manageAction = manageActionCb;
+  }
 
-    openConnection(roomID) {
-      this.socket = new WebSocket(this.url);
-      console.log('open Connection')
-      this.socket.onopen = () => this.open();
-    }
+  openConnection() {
+    this.socket = new WebSocket(this.url);
+    this.socket.onopen = () => this.open();
+  }
 
-    open() {
-      console.log("WebSocket is open now.");
-      this.socket.onclose = () => this.error();
-      this.socket.onerror = (event) => this.close(event);
-      this.socket.onmessage = (message) => this.message(message);
-      this.send({action:'newUser',name:'omerrabi'})
-    }
+  open() {
+    this.socket.onclose = () => this.error();
+    this.socket.onerror = (event) => this.close(event);
+    this.socket.onmessage = (message) => this.message(message);
+  }
 
-    close() {
-      console.log("WebSocket is close now.");
-    }
+  close() {}
 
-    message(message) {
-      if (message.data) {
-        let data = JSON.parse(message.data);
-        if (data.action) this.manageAction(data);
+  message(message) {
+    if (message.data) {
+      let data = JSON.parse(message.data);
+      if (data.action) this.manageAction(data);
     }
-    }
+  }
 
-    error(event) {
-      console.log("WebSocket is error now. ",event);
-    }
+  error(event) {}
 
-    send(message) {
-      if (message && this.socket.readyState == 1) this.socket.send(JSON.stringify(message));
-    }
+  send(message) {
+    if (message && this.socket.readyState == 1) this.socket.send(JSON.stringify(message));
+  }
 
-    manageAction(data){
-      console.log(data)
-      if(data.action == 'newUser') this.send({action:'join'});
-      if(data.action == 'newUserJoin') {
-        new ChatModule(data.roomID)
-      }
-    }
 }

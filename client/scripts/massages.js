@@ -1,7 +1,8 @@
 class Message {
 
-    constructor(myMsg) {
+    constructor(myMsg,icons) {
         this.myMsg = myMsg;
+        this.icons = icons;
     }
 
     setMsg(data){
@@ -20,9 +21,10 @@ class Message {
             HIcons.className = 'far fa-heart';
         let name = document.createElement('p');
             name.className = 'name';
-            name.innerHTML = data.name;
+            name.innerHTML = data.username;
         let content = document.createElement('p');
-            content.innerHTML = data.content;
+        let msgContent = this.getMessageIcons(data.content);
+        content.innerHTML =  msgContent;
         let time = document.createElement('p');
             time.className = 'time';
             time.innerHTML = data.time;
@@ -31,10 +33,18 @@ class Message {
             icons.appendChild(HIcons);
             msg.appendChild(icons);
             msg.appendChild(name);
-            msg.appendChild(content)
-            msg.appendChild(time)
+            msg.appendChild(content);
+            msg.appendChild(time);
             msgBox.appendChild(msg);
             
             return msgBox
+    }
+
+    getMessageIcons(content){
+        for (let index = 0; index < this.icons.length; index++) {
+            const icon = this.icons[index];
+            content = content.replaceAll(icon.symbol,`<i class="${icon.class}"></i>`);  
+        }
+        return content
     }
 } 
