@@ -1,11 +1,14 @@
+"use strick"
 const http = require('http');
 const SocketConnection = require('../webSocket/webSocket_controller');
 const fs = require('fs');
 
 class Server {
 
-  hostname = process.env.SERVER_HOST_NAME || null;
-  port = process.env.SERVER_PORT || null;
+  constructor(){
+    this.hostname = process.env.SERVER_HOST_NAME || null;
+    this.port = process.env.SERVER_PORT || null;
+  }
 
   loadServer() {
     if (!this.hostname || !this.port) throw 'missing env settings';
@@ -15,7 +18,6 @@ class Server {
       res.setHeader('Content-Type', 'text/plain');
       let url = req.url;
       if (url == '/chat') {
-        // res.render(fs.readFileSync('./client/index.html'))
         fs.readFile('./client/index.html', function (error, content) {
           if (error) {
             res.writeHead(500);
